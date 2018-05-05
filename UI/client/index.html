@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weightApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="scale.ico" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/main.css" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/controller.js"></script>
+
+    <title>Weight</title>
+</head>
+<body ng-controller="mainCtrl as ctrl" class="ng-cloak">
+    
+<div class="container-fluid">
+
+    <div class="row" style="padding: 10px"></div>
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8" id="output1">
+            <span style="color: lime"><font size="5">Weight: {{ctrl.input.weight}}</font></span>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8" id="output2">
+            <span ng-if="ctrl.isCount == true" style="color: lime"><font size="3">Count: {{ctrl.count}} {{ctrl.selected.item}}</font></span>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+    <br>
+    
+    <div class="row" style="padding-top: 7px" >  
+        <div class="col-xs-6" style="padding: 0 5px 0 15px">
+            <input type="text" class="form-control" ng-model="ctrl.input.item" placeholder="Item Name...">
+        </div>
+        <div class="col-xs-6" style="padding: 0 15px 0 5px">
+            <input type="text" class="form-control" ng-model="ctrl.input.code" placeholder="Item Code..." >
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 7px" >
+        <div style="text-align: center;">
+            <button class="{{ctrl.itemBtn}}" ng-click="ctrl.onSubmit()" ng-disabled="ctrl.isValid()" style="width:90px; margin: 10px">Add Item</button>
+        </div>
+    </div>
+   
+    <hr style="margin-top: 10px">
+
+    <div class="row"> 
+        <div class="col-xs-7">
+            <table>
+                <tr id="header">
+                    <th>Code</th>
+                    <th>Item</th>
+                    <th>Weight</th>
+                </tr>
+                <tr ng-repeat="data in ctrl.noItems" ng-click="ctrl.onSelect(data)" ng-class="{selected : data.item === ctrl.selected.item}">
+                    <td>{{data.code}}</td>
+                    <td>{{data.item}}</td>
+                    <td>{{data.weight}}</td>
+                </tr> 
+            </table>
+        </div>
+        <div class="col-xs-5" style="padding-top: 35px; text-align: center;" >
+            <button class="btn btn-success" ng-click="ctrl.onCount()" style="width:90px; margin:10px;">Count</button><br>
+            <button class="btn btn-success" ng-click="ctrl.onClear()" style="width:90px; margin:10px;">Clear</button><br>
+            <button class="btn btn-success" ng-click="ctrl.onTare()" style="width:90px; margin:10px;">Tare</button><br>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-xs-7">
+            <input type="text" class="form-control" ng-model="ctrl.emailData.email" placeholder="Email..">
+        </div> 
+        <div class="col-xs-5" style="text-align: center;">
+            <button class="{{ctrl.emailBtn}}" ng-click="ctrl.sendEmail()"  ng-disabled="ctrl.emailValid()" style="width:100px; text-align: center;">Send Email</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-5" style="text-align: center;">
+            <span ng-if="ctrl.emailSent == true" style="color: lime"><font size="4">Email Sent !</font></span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

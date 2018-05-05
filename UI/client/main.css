@@ -1,0 +1,35 @@
+
+#output1{
+    display: flex;
+    justify-content: center;
+    border-style: inset;
+    border-bottom-style: none;
+    background: black;
+}
+#output2{
+    display: flex;
+    justify-content: center;
+    border-style: inset;
+    border-top-style: none;
+    background: black;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+#header{
+    background-color: #dddddd;
+}
+
+.selected {
+    background-color: lightsalmon;
+  }
