@@ -121,11 +121,6 @@ def guessNoItems(Tw,w):
     return float(Tw)/float(w)
 
 
-    37=18
-39=1
-75=18
-
-
 @app.route('/count=<obj>')
 def countItems(obj):
     global showValue
