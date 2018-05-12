@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const NODE_PORT = process.env.PORT || 5000;
+const NODE_PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/../client/"));
 
@@ -64,7 +64,7 @@ app.post('/api/email', function(req,res){
         from: 'Weight Scale App <weight@scale.com>',
         to: req.body.email,
         subject: 'Alert',
-        text: req.body.selectedItem+' value has dropped below 3, Purchase order has been sent'
+        text: req.body.selectedItem+' value has dropped below 4, Purchase order has been sent'
       };
 
       mailgun.messages().send(data, function (error, body) {
