@@ -6,7 +6,7 @@ console.log("Starting...");
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
-
+var fs = require('fs')
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,22 +20,42 @@ var api_key = 'key-f25acb40c99b4c98d5257b649087748a';
 var domain = 'sandboxc2ebf44c040b4829b756fac08d658118.mailgun.org';
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
-var list = [];
-
 app.get('/api/getList', function(req,res){
-    res.status(200).send(list)
+
+    fs.readFile('./test.json', (err, data) => {
+        res.status(200).send(JSON.parse(data));
+    });
+    
 });
 
 app.get('/api/onClear', function(req,res){
-    list = [];
-    res.status(200).send(list)
+   
+    var clearData = "[]"
+   
+    fs.writeFile('./test.json', clearData, (err) => {  
+        if (err) throw err;
+        console.log('Data written to file');
+
+        fs.readFile('./test.json', (err, data) => {
+            res.status(200).send(JSON.parse(data));
+        });
+    });
+   
 });
 
 app.post('/api/setList', function(req,res){
-    console.log(req.body)
-    list.push(req.body)
-    console.log(list)
-    res.status(200).send(list)
+   
+    var currentData = JSON.parse(fs.readFileSync('./test.json'));  
+    currentData.push(req.body)
+
+    fs.writeFile('./test.json', JSON.stringify(currentData), (err) => {  
+        if (err) throw err;
+        console.log('Data written to file');
+
+        fs.readFile('./test.json', (err, data) => {
+            res.status(200).send(JSON.parse(data));
+        });
+    });
 })
 
 app.post('/api/email', function(req,res){
