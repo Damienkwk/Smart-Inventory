@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const NODE_PORT = process.env.PORT || 3000;
+const NODE_PORT = process.env.PORT || 5000;
 
 app.use(express.static(__dirname + "/../client/"));
 
@@ -22,7 +22,7 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 app.get('/api/getList', function(req,res){
 
-    fs.readFile('./test.json', (err, data) => {
+    fs.readFile('./data.json', (err, data) => {
         res.status(200).send(JSON.parse(data));
     });
     
@@ -32,11 +32,11 @@ app.get('/api/onClear', function(req,res){
    
     var clearData = "[]"
    
-    fs.writeFile('./test.json', clearData, (err) => {  
+    fs.writeFile('./data.json', clearData, (err) => {  
         if (err) throw err;
         console.log('Data written to file');
 
-        fs.readFile('./test.json', (err, data) => {
+        fs.readFile('./data.json', (err, data) => {
             res.status(200).send(JSON.parse(data));
         });
     });
@@ -45,14 +45,14 @@ app.get('/api/onClear', function(req,res){
 
 app.post('/api/setList', function(req,res){
    
-    var currentData = JSON.parse(fs.readFileSync('./test.json'));  
+    var currentData = JSON.parse(fs.readFileSync('./data.json'));  
     currentData.push(req.body)
 
-    fs.writeFile('./test.json', JSON.stringify(currentData), (err) => {  
+    fs.writeFile('./data.json', JSON.stringify(currentData), (err) => {  
         if (err) throw err;
         console.log('Data written to file');
 
-        fs.readFile('./test.json', (err, data) => {
+        fs.readFile('./data.json', (err, data) => {
             res.status(200).send(JSON.parse(data));
         });
     });
